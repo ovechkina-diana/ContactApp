@@ -21,15 +21,23 @@ struct Person {
   //  let dm: DataManager
     
     static func getPersons() -> [Person] {
-        let dm = DataManager.shared
+        let names = DataManager.shared.names.shuffled()
+        let surnames = DataManager.shared.surnames.shuffled()
+        let emails = DataManager.shared.emails.shuffled()
+        let numbers = DataManager.shared.numbers.shuffled()
+        
+        let indexCount = min(names.count,
+                             surnames.count,
+                             emails.count,
+                             numbers.count)
       
         var persons = [Person]()
         
-        for index in 0..<dm.names.count {
-            persons.append(Person(name: dm.names.shuffled()[index],
-                                  surname: dm.surnames[index],
-                                  email: dm.emails[index],
-                                  number: dm.numbers[index]))
+        for index in 0..<indexCount {
+            persons.append(Person(name: names[index],
+                                  surname: surnames[index],
+                                  email: emails[index],
+                                  number: numbers[index]))
         }
         return persons
     }
